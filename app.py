@@ -9,7 +9,7 @@ torch.cuda.set_per_process_memory_fraction(0.999, 0)
 st.markdown("""
 # DiffSynth Studio
 
-[Source Code](https://github.com/Artiprocher/DiffSynth-Studio)
+[Source Code](https://github.com/TinsleyME/DiffSynth-Studio-openxlab)
 
 Welcome to DiffSynth Studio.
 """)
