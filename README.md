@@ -1,3 +1,5 @@
+https://openxlab.org.cn/apps/detail/Tinsley/DiffSynth-Studio
+
 # DiffSynth Studio
 
 ## Introduction
