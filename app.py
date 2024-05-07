@@ -13,3 +13,5 @@ st.markdown("""
 
 Welcome to DiffSynth Studio.
 """)
+import os
+os.system(f"python ModelDownload.py")
