@@ -11,7 +11,7 @@ def sdXL_model_download():
 def AnimateDiff_model_download():
   os.system(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://download.openxlab.org.cn/models/houshaowei/AnimateDiff/weight//mm_sd_v15.ckpt -d /home/xlab-app-center/models/AnimateDiff -o mm_sd_v15.ckpt")
 
-def lora_model_download():
+#def lora_model_download():
 
 #多进程启动
 import multiprocessing
