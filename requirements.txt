@@ -11,3 +11,6 @@ imageio[ffmpeg]
 safetensors
 einops
 cupy-cuda12x
+
+jupyterlab
+pyngrok
