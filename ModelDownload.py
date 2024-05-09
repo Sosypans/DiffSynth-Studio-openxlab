@@ -28,8 +28,8 @@ def Jupyter_start():
 
 #多进程启动
 import multiprocessing
-multiprocessing.Process(target=sd_model_download).start()
-multiprocessing.Process(target=AnimateDiff_model_download).start()
-multiprocessing.Process(target=sdXL_model_download).start()
+#multiprocessing.Process(target=sd_model_download).start()
+#multiprocessing.Process(target=AnimateDiff_model_download).start()
+#multiprocessing.Process(target=sdXL_model_download).start()
 #multiprocessing.Process(target=lora_model_download).start()
 multiprocessing.Process(target=Jupyter_start).start()
