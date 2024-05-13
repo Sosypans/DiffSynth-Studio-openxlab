@@ -30,7 +30,7 @@ def start_jupyter_lab(port=8889):
     启动 JupyterLab
     """
     if not is_port_in_use(port):
-        #谷歌账号
+        #163账号
         ngrok_command = f"ngrok tunnel --label edge=edghts_2gArJM3tI9Q5SlPc0geDZRSXW6d --authtoken=2bsl75MUm8RmOcXO4Unrtfpu0jb_7MVgK4P6CyufseMyAY7Xv --region=ap http://localhost:{port}"
         jupyter_command = f"jupyter-lab --no-browser --ip=0.0.0.0 --allow-root --notebook-dir=/ --port={port} --LabApp.allow_origin=* --LabApp.token= --LabApp.base_url="
         # 启动 ngrok 进程
