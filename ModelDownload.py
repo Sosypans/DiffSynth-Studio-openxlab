@@ -14,8 +14,6 @@ def sdXL_model_download():
 def AnimateDiff_model_download():
   os.system(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://download.openxlab.org.cn/models/houshaowei/AnimateDiff/weight//mm_sd_v15.ckpt -d /home/xlab-app-center/models/AnimateDiff -o mm_sd_v15.ckpt")
 
-
-
 def is_port_in_use(port):
     """
     检查指定端口是否被占用
@@ -30,8 +28,8 @@ def start_jupyter_lab(port=8889):
     启动 JupyterLab
     """
     if not is_port_in_use(port):
-        #163账号
-        ngrok_command = f"ngrok tunnel --label edge=edghts_2gArJM3tI9Q5SlPc0geDZRSXW6d --authtoken=2bsl75MUm8RmOcXO4Unrtfpu0jb_7MVgK4P6CyufseMyAY7Xv --region=ap http://localhost:{port}"
+        #谷歌账号
+        ngrok_command = f"ngrok tunnel --label edge=edghts_2gObYkiPlqEvCFuDM4SSjnnpnFx --authtoken=2gObLBCJr4Tv0qXVjWRrcgXYGxW_5R4MAptwj7Tb7B2XNuQTB --region=ap http://localhost:{port}"
         jupyter_command = f"jupyter-lab --no-browser --ip=0.0.0.0 --allow-root --notebook-dir=/ --port={port} --LabApp.allow_origin=* --LabApp.token= --LabApp.base_url="
         # 启动 ngrok 进程
         ngrok_process = subprocess.Popen(ngrok_command, shell=True)
