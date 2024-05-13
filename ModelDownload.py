@@ -1,4 +1,7 @@
 import os
+import psutil
+import subprocess
+import time
 
 def sd_model_download():
   os.system(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://download.openxlab.org.cn/models/Tinsley/realisticasianthaila/weight//realisticasianthaila_v20 -d /home/xlab-app-center/models/stable_diffusion -o realisticasianthaila_v20.ckpt")
@@ -11,25 +14,35 @@ def sdXL_model_download():
 def AnimateDiff_model_download():
   os.system(f"aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://download.openxlab.org.cn/models/houshaowei/AnimateDiff/weight//mm_sd_v15.ckpt -d /home/xlab-app-center/models/AnimateDiff -o mm_sd_v15.ckpt")
 
-#def lora_model_download():
-def Jupyter_start():
-  import subprocess
-  import threading
-  import time
-  import socket
-  import urllib.request
-  ngrok_command = f"ngrok tunnel --label edge=edghts_2gArJM3tI9Q5SlPc0geDZRSXW6d --authtoken=2bsl75MUm8RmOcXO4Unrtfpu0jb_7MVgK4P6CyufseMyAY7Xv --region=ap http://localhost:8889"
-  jupyter_command = "jupyter-lab --no-browser --ip=0.0.0.0 --allow-root --notebook-dir=/ --port=8889 --LabApp.allow_origin=* --LabApp.token= --LabApp.base_url="
-  # 启动 ngrok 进程
-  ngrok_process = subprocess.Popen(ngrok_command, shell=True)
-  # 启动 Jupyter 进程
-  jupyter_process = subprocess.Popen(jupyter_command, shell=True)
 
+
+def is_port_in_use(port):
+    """
+    检查指定端口是否被占用
+    """
+    for conn in psutil.net_connections():
+        if conn.laddr.port == port:
+            return True
+    return False
+
+def start_jupyter_lab(port=8889):
+    """
+    启动 JupyterLab
+    """
+    if not is_port_in_use(port):
+        #谷歌账号
+        ngrok_command = f"ngrok tunnel --label edge=edghts_2gArJM3tI9Q5SlPc0geDZRSXW6d --authtoken=2bsl75MUm8RmOcXO4Unrtfpu0jb_7MVgK4P6CyufseMyAY7Xv --region=ap http://localhost:{port}"
+        jupyter_command = f"jupyter-lab --no-browser --ip=0.0.0.0 --allow-root --notebook-dir=/ --port={port} --LabApp.allow_origin=* --LabApp.token= --LabApp.base_url="
+        # 启动 ngrok 进程
+        ngrok_process = subprocess.Popen(ngrok_command, shell=True)
+        # 启动 Jupyter 进程
+        jupyter_process = subprocess.Popen(jupyter_command, shell=True)
+    else:
+        print(f"Port {port} is already in use, JupyterLab cannot be started.")
 
 #多进程启动
 import multiprocessing
-#multiprocessing.Process(target=sd_model_download).start()
-#multiprocessing.Process(target=AnimateDiff_model_download).start()
-#multiprocessing.Process(target=sdXL_model_download).start()
-#multiprocessing.Process(target=lora_model_download).start()
-multiprocessing.Process(target=Jupyter_start).start()
+if __name__ == '__main__':
+    ls = multiprocessing.Process(target=start_jupyter_lab) # 创建子进程
+    ls.start() # 子进程 开始执行
+    ls.join() # 等待子进程结束
