@@ -28,8 +28,12 @@ def start_jupyter_lab(port=8889):
     启动 JupyterLab
     """
     if not is_port_in_use(port):
-        #谷歌账号
-        ngrok_command = f"ngrok tunnel --label edge=edghts_2gObYkiPlqEvCFuDM4SSjnnpnFx --authtoken=2gObLBCJr4Tv0qXVjWRrcgXYGxW_5R4MAptwj7Tb7B2XNuQTB --region=ap http://localhost:{port}"
+        #环境变量的内网穿透账号
+        ak = os.getenv("OPENXLAB_AK")
+        if not ak:
+            print("Environment variable OPENXLAB_AK is not set.")
+            return
+        ngrok_command = ak
         jupyter_command = f"jupyter-lab --no-browser --ip=0.0.0.0 --allow-root --notebook-dir=/ --port={port} --LabApp.allow_origin=* --LabApp.token= --LabApp.base_url="
         # 启动 ngrok 进程
         ngrok_process = subprocess.Popen(ngrok_command, shell=True)
@@ -37,6 +41,7 @@ def start_jupyter_lab(port=8889):
         jupyter_process = subprocess.Popen(jupyter_command, shell=True)
     else:
         print(f"Port {port} is already in use, JupyterLab cannot be started.")
+
 
 #多进程启动
 import multiprocessing
